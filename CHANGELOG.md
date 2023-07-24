@@ -1,3 +1,15 @@
+# v3.2.2 (Mon Jul 24 2023)
+
+#### ⚠️ Pushed to `main`
+
+- feat(plugin-2): update ([@tumido](https://github.com/tumido))
+
+#### Authors: 1
+
+- Tom Coufal ([@tumido](https://github.com/tumido))
+
+---
+
 # v3.2.1 (Mon Jul 24 2023)
 
 :tada: This release contains work from a new contributor! :tada:
