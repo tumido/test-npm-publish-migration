@@ -19,7 +19,7 @@
     "lint": "turbo run lint",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "release": "multi-semantic-release",
+    "release": "auto shipit",
     "prepare": "husky install"
   },
   "workspaces": {
@@ -31,21 +31,17 @@
   "devDependencies": {
     "@backstage/cli": "0.22.9",
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
-    "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/exec": "6.0.3",
-    "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "9.0.4",
+    "@auto-it/all-contributors": "^10.46.0",
+    "@auto-it/conventional-commits": "^10.46.0",
+    "@auto-it/first-time-contributor": "^10.46.0",
     "@spotify/prettier-config": "15.0.0",
+    "auto": "10.46.0",
     "conventional-changelog-conventionalcommits": "6.1.0",
     "husky": "8.0.3",
-    "multi-semantic-release": "3.0.2",
     "prettier": "3.0.0",
     "turbo": "1.10.0",
-    "typescript": "5.0.4"
-  },
-  "resolutions": {
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.2"
+    "typescript": "5.0.4",
+    "only-allow": "*"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
@@ -56,86 +52,18 @@
       "prettier --write"
     ]
   },
-  "release": {
-    "branches": "main",
+  "author": "janus-idp[bot] <139477802+janus-idp[bot]@users.noreply.github.com>",
+  "auto": {
     "plugins": [
+      "npm",
+      "all-contributors",
       [
-        "@semantic-release/commit-analyzer",
+        "conventional-commits",
         {
-          "preset": "conventionalcommits",
-          "releaseRules": [
-            {
-              "type": "docs",
-              "release": "patch"
-            },
-            {
-              "type": "refactor",
-              "release": "patch"
-            },
-            {
-              "type": "perf",
-              "release": "minor"
-            },
-            {
-              "scope": "no-release",
-              "release": false
-            },
-            {
-              "type": "chore",
-              "scope": "deps",
-              "release": "patch"
-            }
-          ]
+          "preset": "conventionalchangelog"
         }
       ],
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "conventionalcommits",
-          "presetConfig": {
-            "types": [
-              {
-                "type": "feat",
-                "section": "Features"
-              },
-              {
-                "type": "fix",
-                "section": "Bug Fixes"
-              },
-              {
-                "type": "docs",
-                "section": "Documentation"
-              },
-              {
-                "type": "style",
-                "section": "Other changes"
-              },
-              {
-                "type": "refactor",
-                "section": "Other changes"
-              },
-              {
-                "type": "perf",
-                "section": "Other changes"
-              },
-              {
-                "type": "test",
-                "section": "Other changes"
-              }
-            ]
-          }
-        }
-      ],
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/git",
-      [
-        "@semantic-release/github",
-        {
-          "successComment": false,
-          "releasedLabels": false
-        }
-      ]
+      "first-time-contributor"
     ]
   }
 }
