@@ -9,6 +9,10 @@ concurrency:
   group: push
   cancel-in-progress: true
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   test:
     name: Test
@@ -26,16 +30,27 @@ jobs:
       - test
     runs-on: ubuntu-latest
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: '${{ vars.JANUS_IDP_GITHUB_APP_ID }}'
+          private_key: ${{ secrets.JANUS_IDP_GITHUB_APP_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
 
       - name: Build all packages
         uses: ./.github/actions/build
 
-      - name: Release via semantic-release
+      - name: Release via auto
         run: |
           npm config set workspaces-update false
-          yarn release --ignore-private-packages
+          yarn release
         env:
+          PROTECTED_BRANCH_REVIEWER_TOKEN: ${{ steps.generate_token.outputs.token }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
